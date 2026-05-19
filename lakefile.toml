@@ -1,0 +1,6 @@
+name = "SIDESpinorCalibration"
+version = "0.1.0"
+defaultTargets = ["SIDESpinorCalibration"]
+
+[[lean_lib]]
+name = "SIDESpinorCalibration"
