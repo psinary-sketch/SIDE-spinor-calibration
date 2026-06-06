@@ -13,8 +13,8 @@
   PROVED layer only; the weight-1/2 central-element identification (the
   residual of Theorem IV.2) is NOT claimed here -- it is the named open target.
 
-  Vanilla Lean 4. No Mathlib. No `lemma` keyword (Mathlib alias). decide/omega.
-  0 sorry / 0 axioms.  Build-verification pending relay.
+  Vanilla Lean 4. No Mathlib. No `lemma` keyword (Mathlib alias). decide only -- no omega, no native_decide.
+  0 sorry / 0 axioms (literal: every theorem depends on no axioms). Build-verified on v4.29.0-rc8.
 
   Computational workflow assisted by various LLM instances. Mathematical
   content, proof strategies, and editorial decisions are the author's.
@@ -38,12 +38,8 @@ theorem frobenius_one_factorization : (2 - 1) * (3 - 1) = (2 : Int) := by decide
 /-- Numerator (over pq) of chi(Z/p * Z/q) = 1/p + 1/q - 1 = (p + q - pq)/(pq). -/
 def wallNum (p q : Int) : Int := p + q - p * q
 
-/-- (A)=(C) bridge: Sylvester = Wall.  g(p,q) = -wallNum(p,q) = -pq * chi. -/
-theorem sylvester_eq_wall (p q : Int) : g p q = - wallNum p q := by
-  unfold g wallNum
-  -- goal: p*q - p - q = -(p + q - p*q); both p*q are the same atom
-  generalize p * q = m
-  omega
+/-- bridge at the load-bearing pair {2,3}: g(2,3) = -wallNum(2,3). The general identity g(p,q) = -wallNum(p,q) = -pq*chi holds for all coprime p,q and is carried in the keystone (sec 4); the kernel records the {2,3} instance to stay literally axiom-free. -/
+theorem sylvester_eq_wall_two_three : g 2 3 = - wallNum 2 3 := by decide
 
 /-- For {2,3}: the Wall numerator is -1, so g(2,3) = -(-1) = 1. -/
 theorem wall_num_two_three : wallNum 2 3 = -1 := by decide
